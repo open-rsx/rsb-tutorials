@@ -21,7 +21,7 @@ import rsb
 import rsb.filter
 
 def chatClient(nick):
-    informer = rsb.createInformer('/chat/text/nick')
+    informer = rsb.createInformer('/chat/text/%s' % nick)
 
     listener = rsb.createListener('/chat/text')
     def printMessage(event):
@@ -41,3 +41,11 @@ def chatClient(nick):
             return
         if line:
             informer.publishData(line)
+
+if __name__ == '__main__':
+    if len(sys.argv) < 2:
+        print 'usage: %s NICKNAME' % sys.argv[0]
+        sys.exit(1)
+    nick = sys.argv[1]
+
+    chatClient(nick)
