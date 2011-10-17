@@ -30,7 +30,7 @@
    :chat
 
    ;; chat-2
-   :*photo*
+   :*avatar*
 
    :start-avatar-server
    :get-avatar))

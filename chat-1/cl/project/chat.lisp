@@ -19,9 +19,10 @@
 
 (in-package :chat)
 
+(defvar *base-url* "spread:/chat/")
+
 (defun chat (nick)
-  (let* ((base-url  "spread:/chat/")
-	 (text-url  (puri:merge-uris "text/" base-url))
+  (let* ((text-url  (puri:merge-uris "text/" *base-url*))
 	 (speak-url (puri:merge-uris nick text-url)))
     (with-informer (i speak-url t)
       (with-listener (l text-url)
