@@ -21,17 +21,17 @@ import rsb
 import rsb.filter
 
 def chatClient(nick):
-    # Insert sending and receiving instances
-    informer = ...
-    listener = ...
+    informer = rsb.createInformer('/chat/text/%s' % nick)
 
+    listener = rsb.createListener('/chat/text')
     def printMessage(event):
-	# Insert display messages
-	...
-
+        sys.stdout.write('%s%s: %s\n> '
+                         % (chr(13),
+                            event.scope.components[-1],
+                            event.data))
+        sys.stdout.flush()
     listener.addFilter(rsb.filter.OriginFilter(informer.id, invert = True))
-    # Add a handler
-    listener.addHandler(...)
+    listener.addHandler(printMessage)
 
     while True:
         sys.stdout.write('> ')
@@ -40,7 +40,7 @@ def chatClient(nick):
         if line == '/quit':
             return
         if line:
-            # Insert sending code here
+            informer.publishData(line)
 
 if __name__ == '__main__':
     if len(sys.argv) < 2:
