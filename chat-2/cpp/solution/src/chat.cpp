@@ -41,8 +41,7 @@ void printMessage(rsb::EventPtr event) {
 	= static_pointer_cast<string>(event->getData());
 
     string sender = event->getScope().getComponents().back();
-    // Create remote server 
-    rsb::patterns::RemoteServerPtr rms = ...
+    rsb::patterns::RemoteServerPtr rms = rsb::Factory::getInstance().createRemoteServer("/chat/avatar/" +sender);
     shared_ptr<rst::vision::Image> Image = rms->call<rst::vision::Image>("get", shared_ptr<string>(new string("bla")));
     cout << "\r" << "-- Image width is: "<< Image->width() << " and height: " << Image->height() << endl << sender << ": " << *message  << endl
          << "> ";
@@ -85,8 +84,8 @@ int main(int argc, char *argv[]) {
     avatarImage->set_width(32);
     avatarImage->set_height(32);
     avatarImage->mutable_data()->resize(32 * 32 * 3);
-    // Create server
-    rsb::patterns::ServerPtr avatarServer = ...
+    rsb::patterns::ServerPtr avatarServer
+	= factory.createServer("/chat/avatar/"  + nick);
     avatarServer->registerMethod("get", rsb::patterns::Server::CallbackPtr(new AvatarCallback(avatarImage)));
 
     while (true) {
