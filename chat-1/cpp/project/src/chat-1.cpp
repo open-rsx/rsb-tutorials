@@ -30,14 +30,7 @@ using namespace std;
 using namespace boost;
 
 void printMessage(rsb::EventPtr event) {
-    shared_ptr<string> message
-	= static_pointer_cast<string>(event->getData());
-
-    string sender = event->getScope().getComponents().back();
-
-    cout << "\r" << sender << ": " << *message  << endl
-         << "> ";
-    cout.flush();
+    // Insert display messages 
 }
 
 int main(int argc, char *argv[]) {
@@ -46,14 +39,14 @@ int main(int argc, char *argv[]) {
 	return EXIT_FAILURE;
     }
     string nick = argv[1];
+    // Insert sending and receiving instances
+    rsb::Factory &factory = ...
 
-    rsb::Factory &factory = rsb::Factory::getInstance();
-
-    rsb::Informer<string>::Ptr informer
-	= factory.createInformer<string>("/chat/text/" + nick);
-    rsb::ListenerPtr listener = factory.createListener("/chat/text");
+    rsb::Informer<string>::Ptr informer = ...
+    rsb::ListenerPtr listener = ...
     listener->addFilter(rsb::filter::FilterPtr(new rsb::filter::OriginFilter(informer->getId(), true)));
-    listener->addHandler(rsb::HandlerPtr(new rsb::EventFunctionHandler(&printMessage)));
+    // Add a handler
+    listener->addHandler(...);
 
     while (true) {
 	cout << "> ";
@@ -63,7 +56,7 @@ int main(int argc, char *argv[]) {
 	if (*message == "/quit") {
 	    break;
 	}
-	informer->publish(message);
+	// Send the message
     }
 
     return EXIT_SUCCESS;
