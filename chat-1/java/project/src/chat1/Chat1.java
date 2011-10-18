@@ -19,10 +19,10 @@ public class Chat1 {
     private static class MessagePrinter implements Handler {
         @Override
 	public void internalNotify(Event e) {
-            // Insert display messages        
+            // Insert display of messages
 	}
     };
-    
+
     public static void main(String args[]) throws IOException, RSBException {
 	if (args.length != 1) {
 	    System.err.println("usage: <java command> NICKNAME");
@@ -30,19 +30,16 @@ public class Chat1 {
 	}
 	String nick = args[0];
 
-        // Insert sending and receiving instances
+        // Insert creation of sending and receiving participants
 	Informer informer = ...;
+        informer.activate();
+
 	Listener listener = ...;
-        
+	listener.activate();
         listener.addFilter(new OriginFilter(informer.getId(), true));
         // Add a handler
         listener.addHandler(...);
 
-        // Informer and lister need to be activated
-        informer.activate();
-        listener.activate();
-       	
-	
 	InputStreamReader converter = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(converter);
 	while (true) {
@@ -53,7 +50,7 @@ public class Chat1 {
 		break;
 	    }
             // Insert sending code here
-	    // informer...
+	    informer ...
 	}
     }
 };

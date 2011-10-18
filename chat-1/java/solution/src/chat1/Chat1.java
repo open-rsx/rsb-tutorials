@@ -42,7 +42,7 @@ public class Chat1 {
 	    System.out.flush();
 	}
     };
-    
+
     public static void main(String args[]) throws IOException, RSBException {
 	if (args.length != 1) {
 	    System.err.println("usage: <java command> NICKNAME");
@@ -52,12 +52,11 @@ public class Chat1 {
 
 	Informer informer = Factory.getInstance().createInformer("/chat/text/" + nick);
 	informer.activate();
+
 	Listener listener = Factory.getInstance().createListener("/chat/text");
-	listener.activate();	
+	listener.activate();
 	listener.addFilter(new OriginFilter(informer.getId(), true));
 	listener.addHandler(new MessagePrinter(), true);
-	
-	
 
 	InputStreamReader converter = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(converter);

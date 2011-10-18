@@ -1,21 +1,3 @@
-/** ============================================================
- *
- * This file is part of the RSB project.
- *
- * Copyright (C) 2011 Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU General Public License as
- * published by the Free Software Foundation; either version 2, or (at
- * your option) any later version.
- *
- * This program is distributed in the hope that it will be useful, but
- * WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * General Public License for more details.
- *
- * ============================================================  */
-
 #include <string>
 
 #include <boost/shared_ptr.hpp>
@@ -41,7 +23,7 @@ void printMessage(rsb::EventPtr event) {
 	= static_pointer_cast<string>(event->getData());
 
     string sender = event->getScope().getComponents().back();
-    // Create remote server 
+    // Create remote server
     rsb::patterns::RemoteServerPtr rms = ...
     shared_ptr<rst::vision::Image> Image = rms->call<rst::vision::Image>("get", shared_ptr<string>(new string("bla")));
     cout << "\r" << "-- Image width is: "<< Image->width() << " and height: " << Image->height() << endl << sender << ": " << *message  << endl
