@@ -1,0 +1,102 @@
+#+TITLE:       RSB Tutorial
+#+AUTHOR:      Florian Lier \and Jan Moringen
+#+DESCRIPTION:
+#+KEYWORDS:
+#+LANGUAGE:    en
+#+MACRO: INSTITUTE CLF, CoR-Lab
+
+
+* Exercise 1: Serverless Text Chat \\ Task			    :B_frame:
+  :PROPERTIES:
+  :BEAMER_env: frame
+  :END:
+** Task								    :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+   + Write a simple serverless chat-program
+   + Chat uses publish/subscribe communication
+     + Scope for publishing text messages: =/chat/text/NICKNAME=
+     + Scope for receiving text messages: =/chat/text= (automatically
+       aggregates all text messages)
+   + Chat messages are strings
+** Should look similar to					  :B_example:
+   :PROPERTIES:
+   :BEAMER_env: example
+   :END:
+#+BEGIN_EXAMPLE
+$ ./rsb-chat-1
+usage: ./rsb-chat-1 NICKNAME
+$ ./rsb-chat-1 bob
+alice: hi bob
+> hi alice
+alice: what's up?
+>
+#+END_EXAMPLE
+* Exercise 1: Serverless Text Chat \\ Getting started		    :B_frame:
+   :PROPERTIES:
+   :BEAMER_env: frame
+   :END:
+** Module Environment						    :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+#+BEGIN_SRC sh
+$ cat /vol/isy/current/TODO >> ~/.bashrc
+$ . .bashrc
+#+END_SRC
+** Project							    :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+   1. RSB Config File
+
+      Copy template from =/vol/isy/current/TODO= to =~/.config/rsb.conf=
+   2. Copy one of the template projects in
+      =/vol/isy/current/tutorial/chat-1/LANGUAGE/project=
+      + Languages: Java, Python, C++, Common Lisp
+   3. Create and configure project in your favorite IDE
+      + Java: add JAR-files in =/vol/isy/current/releases/lucid/{lib,share}=
+      + C++: configure CMake to use
+        =/vol/isy/current/releases/lucid/share/{rsc,rsb,rst}=
+* Exercise 2: Avatar Images \\ Task				    :B_frame:
+  :PROPERTIES:
+  :BEAMER_env: frame
+  :END:
+** Task								    :B_block:
+   :PROPERTIES:
+   :BEAMER_env: block
+   :END:
+   + Extend server to allow for
+     + Download of avatar image by other users
+     + Retrieval of avatar images from other users
+   + Avatar image download uses RPC communication
+     + Scope for RPC servers =/chat/avatar/NICKNAME=
+     + Method name =get=
+** Example							  :B_example:
+   :PROPERTIES:
+   :BEAMER_env: example
+   :END:
+#+BEGIN_EXAMPLE
+$ ./rsb-chat-2
+usage: ./rsb-chat-2 NICKNAME
+$ ./rsb-chat-2 bob
+> hi alice
+-- Image width is: 32 and height: 32
+alice: hi bob
+>
+#+END_EXAMPLE
+* Settings							   :noexport:
+
+#+OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+STARTUP: beamer content
+#+LaTeX_CLASS: beamer
+#+LaTeX_CLASS_OPTIONS: [8pt, presentation]
+#+BEAMER_FRAME_LEVEL: 0
+#+MACRO: BEAMERTHEME Unibi
+#+MACRO: BEAMERTHEMEOPTIONS [faculty=Corlab]
+
+# Local Variables:
+# eval: (setenv "TEXINPUTS" "./style//:")
+# End:

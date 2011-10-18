@@ -1,0 +1,169 @@
+% Created 2011-10-18 Tue 06:03
+\documentclass[8pt, presentation]{beamer}
+\usetheme[faculty=Corlab]{Unibi}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{fixltx2e}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{soul}
+\usepackage{marvosym}
+\usepackage{latexsym}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{listings-org}
+\definecolor{darkgoldenrod}{rgb}{0.72, 0.53, 0.04}
+\definecolor{firebrick}{rgb}{0.70, 0.13, 0.13}
+\definecolor{purple}{rgb}{0.63, 0.13, 0.94}
+\definecolor{rosybrown}{rgb}{0.74, 0.56, 0.56}
+
+\lstset{
+  frame=single,
+  numbers=left,
+  basicstyle=\small\tt,
+  commentstyle=\itshape\color{firebrick},
+  keywordstyle=\color{purple},
+  stringstyle=\color{rosybrown}
+}
+
+\newcommand{\evalto}{}
+\usepackage{hyperref}
+\tolerance=1000
+\lstset{
+  frame=none,
+  xleftmargin=4ex
+}
+\institute{CLF, CoR-Lab}
+\AtBeginSection[]{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+\AtBeginSubsection[]{
+  \begin{frame}<beamer>{Outline}
+    \tableofcontents[currentsection,currentsubsection]
+  \end{frame}
+}
+\providecommand{\alert}[1]{\textbf{#1}}
+
+\title{RSB Tutorial}
+\author{Florian Lier \and Jan Moringen}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+
+
+\begin{frame}[fragile,t, shrink]
+\frametitle{Exercise 1: Serverless Text Chat}
+\framesubtitle{Task}
+\label{sec-1}
+\begin{block}{Task}
+\label{sec-1-1}
+
+\begin{itemize}
+\item Write a simple serverless chat-program
+\item Chat uses publish/subscribe communication
+\begin{itemize}
+\item Scope for publishing text messages: \texttt{/chat/text/NICKNAME}
+\item Scope for receiving text messages: \texttt{/chat/text} (automatically
+       aggregates all text messages)
+\end{itemize}
+\item Chat messages are strings
+\end{itemize}
+\end{block}
+\begin{example}[Should look similar to]
+\label{sec-1-2}
+
+
+\begin{verbatim}
+$ ./rsb-chat-1
+usage: ./rsb-chat-1 NICKNAME
+$ ./rsb-chat-1 bob
+alice: hi bob
+> hi alice
+alice: what's up?
+>
+\end{verbatim}
+\end{example}
+\end{frame}
+\begin{frame}[fragile,t, shrink]
+\frametitle{Exercise 1: Serverless Text Chat}
+\framesubtitle{Getting started}
+\label{sec-2}
+\begin{block}{Module Environment}
+\label{sec-2-1}
+
+
+\lstset{language=sh}
+\begin{lstlisting}
+$ cat /vol/isy/current/TODO >> ~/.bashrc
+$ . .bashrc
+\end{lstlisting}
+\end{block}
+\begin{block}{Project}
+\label{sec-2-2}
+
+\begin{enumerate}
+\item RSB Config File
+
+      Copy template from \texttt{/vol/isy/current/TODO} to \texttt{\textasciitilde{}/.config/rsb.conf}
+\item Copy one of the template projects in
+      \texttt{/vol/isy/current/tutorial/chat-1/LANGUAGE/project}
+\begin{itemize}
+\item Languages: Java, Python, C++, Common Lisp
+\end{itemize}
+\item Create and configure project in your favorite IDE
+\begin{itemize}
+\item Java: add JAR-files in \texttt{/vol/isy/current/releases/lucid/\{lib,share\}}
+\item C++: configure CMake to use
+        \texttt{/vol/isy/current/releases/lucid/share/\{rsc,rsb,rst\}}
+\end{itemize}
+\end{enumerate}
+\end{block}
+\end{frame}
+\begin{frame}[fragile,t, shrink]
+\frametitle{Exercise 2: Avatar Images}
+\framesubtitle{Task}
+\label{sec-3}
+\begin{block}{Task}
+\label{sec-3-1}
+
+\begin{itemize}
+\item Extend server to allow for
+\begin{itemize}
+\item Download of avatar image by other users
+\item Retrieval of avatar images from other users
+\end{itemize}
+\item Avatar image download uses RPC communication
+\begin{itemize}
+\item Scope for RPC servers \texttt{/chat/avatar/NICKNAME}
+\item Method name \texttt{get}
+\end{itemize}
+\end{itemize}
+\end{block}
+\begin{example}[Example]
+\label{sec-3-2}
+
+
+\begin{verbatim}
+$ ./rsb-chat-2
+usage: ./rsb-chat-2 NICKNAME
+$ ./rsb-chat-2 bob
+> hi alice
+-- Image width is: 32 and height: 32
+alice: hi bob
+>
+\end{verbatim}
+\end{example}
+\end{frame}
+
+\end{document}
