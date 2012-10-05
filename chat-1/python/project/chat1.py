@@ -8,8 +8,8 @@ def chatClient(nick):
     listener = ...
 
     def printMessage(event):
-	# Insert display of messages
-	...
+        # Insert display of messages
+        ...
 
     listener.addFilter(rsb.filter.OriginFilter(informer.id, invert = True))
     # Add a handler

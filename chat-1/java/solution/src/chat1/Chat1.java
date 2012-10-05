@@ -2,7 +2,7 @@
  *
  * This file is part of the RSB project.
  *
- * Copyright (C) 2011 Jan Moringen jmoringe@techfak.uni-bielefeld.de
+ * Copyright (C) 2011, 2012 Jan Moringen jmoringe@techfak.uni-bielefeld.de
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -16,6 +16,7 @@
  *
  * ============================================================  */
 
+// mark-start::body
 package chat1;
 
 import java.io.IOException;
@@ -36,38 +37,39 @@ public class Chat1 {
 
     private static class MessagePrinter implements Handler {
         @Override
-	public void internalNotify(Event e) {
-	    List<String> results =  e.getScope().getComponents();
-		System.out.print("\r" + results.get(results.size()-1) + ": " + e.getData() + "\n> ");
-	    System.out.flush();
-	}
+        public void internalNotify(Event e) {
+            List<String> results =  e.getScope().getComponents();
+                System.out.print("\r" + results.get(results.size()-1) + ": " + e.getData() + "\n> ");
+            System.out.flush();
+        }
     };
 
     public static void main(String args[]) throws IOException, RSBException {
-	if (args.length != 1) {
-	    System.err.println("usage: <java command> NICKNAME");
-	    System.exit(1);
-	}
-	String nick = args[0];
+        if (args.length != 1) {
+            System.err.println("usage: <java command> NICKNAME");
+            System.exit(1);
+        }
+        String nick = args[0];
 
-	Informer informer = Factory.getInstance().createInformer("/chat/text/" + nick);
-	informer.activate();
+        Informer informer = Factory.getInstance().createInformer("/chat/text/" + nick);
+        informer.activate();
 
-	Listener listener = Factory.getInstance().createListener("/chat/text");
-	listener.activate();
-	listener.addFilter(new OriginFilter(informer.getId(), true));
-	listener.addHandler(new MessagePrinter(), true);
+        Listener listener = Factory.getInstance().createListener("/chat/text");
+        listener.activate();
+        listener.addFilter(new OriginFilter(informer.getId(), true));
+        listener.addHandler(new MessagePrinter(), true);
 
-	InputStreamReader converter = new InputStreamReader(System.in);
+        InputStreamReader converter = new InputStreamReader(System.in);
         BufferedReader in = new BufferedReader(converter);
-	while (true) {
-	    System.out.print("> ");
-	    System.out.flush();
-	    String line = in.readLine();
-	    if (line.equals("/quit")) {
-		break;
-	    }
-	    informer.send(line);
-	}
+        while (true) {
+            System.out.print("> ");
+            System.out.flush();
+            String line = in.readLine();
+            if (line.equals("/quit")) {
+                break;
+            }
+            informer.send(line);
+        }
     }
 };
+// mark-end::body

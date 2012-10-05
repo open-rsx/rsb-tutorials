@@ -2,7 +2,7 @@
  *
  * This file is part of the RSB project.
  *
- * Copyright (C) 2011 Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
+ * Copyright (C) 2011, 2012 Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -16,6 +16,7 @@
  *
  * ============================================================  */
 
+// mark-start::body
 #include <string>
 
 #include <boost/shared_ptr.hpp>
@@ -31,7 +32,7 @@ using namespace boost;
 
 void printMessage(rsb::EventPtr event) {
     shared_ptr<string> message
-	= static_pointer_cast<string>(event->getData());
+        = static_pointer_cast<string>(event->getData());
 
     string sender = event->getScope().getComponents().back();
 
@@ -42,29 +43,30 @@ void printMessage(rsb::EventPtr event) {
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
-	cerr << "usage: " << argv[0] << " NICKNAME" << endl;
-	return EXIT_FAILURE;
+        cerr << "usage: " << argv[0] << " NICKNAME" << endl;
+        return EXIT_FAILURE;
     }
     string nick = argv[1];
 
     rsb::Factory &factory = rsb::Factory::getInstance();
 
     rsb::Informer<string>::Ptr informer
-	= factory.createInformer<string>("/chat/text/" + nick);
+        = factory.createInformer<string>("/chat/text/" + nick);
     rsb::ListenerPtr listener = factory.createListener("/chat/text");
     listener->addFilter(rsb::filter::FilterPtr(new rsb::filter::OriginFilter(informer->getId(), true)));
     listener->addHandler(rsb::HandlerPtr(new rsb::EventFunctionHandler(&printMessage)));
 
     while (true) {
-	cout << "> ";
-	cout.flush();
-	shared_ptr<string> message(new string());
-	getline(cin, *message);
-	if (*message == "/quit") {
-	    break;
-	}
-	informer->publish(message);
+        cout << "> ";
+        cout.flush();
+        shared_ptr<string> message(new string());
+        getline(cin, *message);
+        if (*message == "/quit") {
+            break;
+        }
+        informer->publish(message);
     }
 
     return EXIT_SUCCESS;
 }
+// mark-end::body

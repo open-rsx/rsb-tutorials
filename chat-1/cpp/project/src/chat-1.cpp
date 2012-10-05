@@ -17,8 +17,8 @@ void printMessage(rsb::EventPtr event) {
 
 int main(int argc, char *argv[]) {
     if (argc != 2) {
-	cerr << "usage: " << argv[0] << " NICKNAME" << endl;
-	return EXIT_FAILURE;
+        cerr << "usage: " << argv[0] << " NICKNAME" << endl;
+        return EXIT_FAILURE;
     }
     string nick = argv[1];
     // Insert creation of sending and receiving participants
@@ -31,15 +31,15 @@ int main(int argc, char *argv[]) {
     listener->addHandler(...);
 
     while (true) {
-	cout << "> ";
-	cout.flush();
-	shared_ptr<string> message(new string());
-	getline(cin, *message);
-	if (*message == "/quit") {
-	    break;
-	}
-	// Send the message
-	informer ...
+        cout << "> ";
+        cout.flush();
+        shared_ptr<string> message(new string());
+        getline(cin, *message);
+        if (*message == "/quit") {
+            break;
+        }
+        // Send the message
+        informer ...
     }
 
     return EXIT_SUCCESS;
