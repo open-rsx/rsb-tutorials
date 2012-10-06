@@ -1,6 +1,6 @@
 ;;; chat.lisp --- Chat program with avatars using RSB
 ;;
-;; Copyright (C) 2011 Jan Moringen
+;; Copyright (C) 2011, 2012 Jan Moringen
 ;;
 ;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 ;;
@@ -17,17 +17,18 @@
 ;; You should have received a copy of the GNU General Public License
 ;; along with this program. If not, see <http://www.gnu.org/licenses>.
 
-(in-package :chat)
+;; mark-start::body
+(cl:in-package :chat)
 
 (defvar *avatar* (make-instance 'rst.vision:image
-			       :width  32
-			       :height 32
-			       :data   (binio:make-octet-vector (* 32 32 3))))
+				:width	32
+				:height 32
+				:data	(nibbles:make-octet-vector (* 32 32 3))))
 
 (let ((avatar-url (puri:merge-uris "avatar/" *base-url*)))
 
   (defun start-avatar-server (nick avatar)
-    (let* ((url    (puri:merge-uris nick avatar-url))
+    (let* ((url	   (puri:merge-uris nick avatar-url))
 	   (server (rsb.patterns:make-local-server url)))
       (setf (rsb.patterns:server-method server "get")
 	    #'(lambda () avatar))
@@ -36,3 +37,4 @@
   (defun get-avatar (nick)
     (with-remote-server (server (puri:merge-uris nick avatar-url))
       (call server "get" rsb.converter:+no-value+))))
+;; mark-end::body

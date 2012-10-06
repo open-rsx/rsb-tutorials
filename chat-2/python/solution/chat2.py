@@ -2,7 +2,7 @@
 #
 # This file is part of the RSB project.
 #
-# Copyright (C) 2011 Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
+# Copyright (C) 2011, 2012 Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License as
@@ -16,6 +16,7 @@
 #
 # ============================================================
 
+# mark-start::body
 import sys
 
 import rsb
@@ -51,6 +52,7 @@ if __name__ == '__main__':
         print 'usage: %s NICKNAME' % sys.argv[0]
         sys.exit(1)
     nick = sys.argv[1]
-    
+
     __server = AvatarServer(nick, __image)
     chat1.chatClient(nick)
+# mark-end::body
