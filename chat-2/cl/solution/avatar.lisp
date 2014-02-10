@@ -16,9 +16,8 @@
 
   (defun start-avatar-server (nick avatar)
     (let* ((url            (puri:merge-uris nick avatar-url))
-           (server (rsb.patterns:make-local-server url)))
-      (setf (rsb.patterns:server-method server "get")
-            (lambda () avatar))
+           (server (make-local-server url)))
+      (setf (server-method server "get") (lambda () avatar))
       server))
 
   (defun get-avatar (nick)
