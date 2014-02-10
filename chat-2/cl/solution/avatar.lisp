@@ -1,4 +1,4 @@
-;;;; chat.lisp --- Chat program with avatars using RSB
+;;;; avatar.lisp --- Chat program with avatars using RSB
 ;;;;
 ;;;; Copyright (C) 2011, 2012, 2013, 2014 Jan Moringen
 ;;;;
