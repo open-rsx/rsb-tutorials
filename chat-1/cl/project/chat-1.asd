@@ -4,12 +4,12 @@
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
-(cl:defpackage :chat-1-system
+(cl:defpackage #:chat-1-system
   (:use
-   :cl
-   :asdf))
+   #:cl
+   #:asdf))
 
-(cl:in-package :chat-1-system)
+(cl:in-package #:chat-1-system)
 
 (defsystem :chat-1
   :author      "Jan Moringen <jmoringe@techfak.uni-bielefeld.de>"

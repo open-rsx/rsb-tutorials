@@ -4,20 +4,20 @@
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
-(cl:defpackage :chat
+(cl:defpackage #:chat
   (:use
-   :cl
-   :alexandria
-   :rsb
-   :rsb.filter
-   :rsb.patterns)
+   #:cl
+   #:alexandria
+   #:rsb
+   #:rsb.filter
+   #:rsb.patterns)
 
   (:export
    ;; chat-1
-   :chat
+   #:chat
 
    ;; chat-2
-   :*avatar*
+   #:*avatar*
 
-   :start-avatar-server
-   :get-avatar))
+   #:start-avatar-server
+   #:get-avatar))

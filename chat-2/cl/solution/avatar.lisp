@@ -5,7 +5,7 @@
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
 ;; mark-start::body
-(cl:in-package :chat)
+(cl:in-package #:chat)
 
 (defvar *avatar* (make-instance 'rst.vision:image
 				:width	32
