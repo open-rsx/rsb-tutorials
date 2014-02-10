@@ -1,6 +1,6 @@
 ;;;; chat-2.asd --- System definition for chat-2 tutorial.
 ;;;;
-;;;; Copyright (C) 2011, 2012, 2013 Jan Moringen
+;;;; Copyright (C) 2011, 2012, 2013, 2014 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -18,5 +18,5 @@
   :license     "GPLv3+"
   :description "Simple RSB-based chat application."
   :depends-on  (:cl-rsb
-		:chat-1)
+                :chat-1)
   :components  ((:file       "avatar")))
