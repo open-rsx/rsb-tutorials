@@ -1,6 +1,6 @@
 ;;;; avatar.lisp --- Chat program with avatars using RSB
 ;;;;
-;;;; Copyright (C) 2011, 2012, 2013, 2014 Jan Moringen
+;;;; Copyright (C) 2011-2016 Jan Moringen
 ;;;;
 ;;;; Author: Jan Moringen <jmoringe@techfak.uni-bielefeld.de>
 
@@ -15,12 +15,12 @@
 (let ((avatar-url (puri:merge-uris "avatar/" *base-url*)))
 
   (defun start-avatar-server (nick avatar)
-    (let* ((url            (puri:merge-uris nick avatar-url))
-           (server (make-local-server url)))
+    (let* ((url    (puri:merge-uris nick avatar-url))
+           (server (make-participant :local-server url)))
       (setf (server-method server "get") (lambda () avatar))
       server))
 
   (defun get-avatar (nick)
-    (with-remote-server (server (puri:merge-uris nick avatar-url))
+    (with-participant (server :remote-server (puri:merge-uris nick avatar-url))
       (call server "get" rsb.converter:+no-value+))))
 ;; mark-end::body
