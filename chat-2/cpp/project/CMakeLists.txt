@@ -6,7 +6,8 @@ find_package(RSB REQUIRED)
 find_package(RST REQUIRED) # for data types
 
 add_definitions(${RST_CFLAGS})
-include_directories(${RSB_INCLUDE_DIRS}
+include_directories(SYSTEM
+                    ${RSB_INCLUDE_DIRS}
                     ${RST_INCLUDE_DIRS})
 link_directories(${RSB_LIBRARY_DIRS}
                  ${RST_LIBRARY_DIRS})

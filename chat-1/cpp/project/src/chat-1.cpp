@@ -9,8 +9,6 @@
 
 using namespace std;
 
-using namespace boost;
-
 void printMessage(rsb::EventPtr event) {
     // Insert display of messages
 }
@@ -33,7 +31,7 @@ int main(int argc, char *argv[]) {
     while (true) {
         cout << "> ";
         cout.flush();
-        shared_ptr<string> message(new string());
+        boost::shared_ptr<string> message(new string());
         getline(cin, *message);
         if (*message == "/quit") {
             break;

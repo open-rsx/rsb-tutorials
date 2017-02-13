@@ -28,11 +28,9 @@
 
 using namespace std;
 
-using namespace boost;
-
 void printMessage(rsb::EventPtr event) {
-    shared_ptr<string> message
-        = static_pointer_cast<string>(event->getData());
+    boost::shared_ptr<string> message
+        = boost::static_pointer_cast<string>(event->getData());
 
     string sender = event->getScope().getComponents().back();
 
@@ -48,7 +46,7 @@ int main(int argc, char *argv[]) {
     }
     string nick = argv[1];
 
-    rsb::Factory &factory = rsb::Factory::getInstance();
+    rsb::Factory &factory = rsb::getFactory();
 
     rsb::Informer<string>::Ptr informer
         = factory.createInformer<string>("/chat/text/" + nick);
@@ -59,7 +57,7 @@ int main(int argc, char *argv[]) {
     while (true) {
         cout << "> ";
         cout.flush();
-        shared_ptr<string> message(new string());
+        boost::shared_ptr<string> message(new string());
         getline(cin, *message);
         if (*message == "/quit") {
             break;

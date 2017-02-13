@@ -35,29 +35,27 @@
 
 using namespace std;
 
-using namespace boost;
-
 void printMessage(rsb::EventPtr event) {
-    shared_ptr<string> message
-        = static_pointer_cast<string>(event->getData());
+    boost::shared_ptr<string> message
+        = boost::static_pointer_cast<string>(event->getData());
 
     string sender = event->getScope().getComponents().back();
-    rsb::patterns::RemoteServerPtr rms = rsb::Factory::getInstance().createRemoteServer("/chat/avatar/" +sender);
-    shared_ptr<rst::vision::Image> Image = rms->call<rst::vision::Image>("get", shared_ptr<string>(new string("bla")));
+    rsb::patterns::RemoteServerPtr rms = rsb::getFactory().createRemoteServer("/chat/avatar/" +sender);
+    boost::shared_ptr<rst::vision::Image> Image = rms->call<rst::vision::Image>("get", boost::shared_ptr<string>(new string("bla")));
     cout << "\r" << "-- Image width is: "<< Image->width() << " and height: " << Image->height() << endl << sender << ": " << *message  << endl
          << "> ";
     cout.flush();
 }
 
-typedef shared_ptr<rst::vision::Image> ImagePtr;
+typedef boost::shared_ptr<rst::vision::Image> ImagePtr;
 
-class AvatarCallback: public rsb::patterns::Server::Callback<std::string, rst::vision::Image> {
+class AvatarCallback: public rsb::patterns::LocalServer::Callback<std::string, rst::vision::Image> {
 public:
     AvatarCallback(ImagePtr image):
         image(image) {
     }
 
-    ImagePtr call(const string &methodName, shared_ptr<string> /*ignored*/) {
+    ImagePtr call(const string &methodName, boost::shared_ptr<string> /*ignored*/) {
         return this->image;
     }
 private:
@@ -65,7 +63,7 @@ private:
 };
 
 int main(int argc, char *argv[]) {
-    rsb::converter::stringConverterRepository()->registerConverter(rsb::converter::Converter<string>::Ptr(new rsb::converter::ProtocolBufferConverter<rst::vision::Image>()));
+    rsb::converter::converterRepository<string>()->registerConverter(rsb::converter::Converter<string>::Ptr(new rsb::converter::ProtocolBufferConverter<rst::vision::Image>()));
 
     if (argc != 2) {
         cerr << "usage: " << argv[0] << " NICKNAME" << endl;
@@ -73,7 +71,7 @@ int main(int argc, char *argv[]) {
     }
     string nick = argv[1];
 
-    rsb::Factory &factory = rsb::Factory::getInstance();
+    rsb::Factory &factory = rsb::getFactory();
 
     rsb::Informer<string>::Ptr informer
         = factory.createInformer<string>("/chat/text/" + nick);
@@ -85,14 +83,14 @@ int main(int argc, char *argv[]) {
     avatarImage->set_width(32);
     avatarImage->set_height(32);
     avatarImage->mutable_data()->resize(32 * 32 * 3);
-    rsb::patterns::ServerPtr avatarServer
-        = factory.createServer("/chat/avatar/"  + nick);
-    avatarServer->registerMethod("get", rsb::patterns::Server::CallbackPtr(new AvatarCallback(avatarImage)));
+    rsb::patterns::LocalServerPtr avatarServer
+        = factory.createLocalServer("/chat/avatar/"  + nick);
+    avatarServer->registerMethod("get", rsb::patterns::LocalServer::CallbackPtr(new AvatarCallback(avatarImage)));
 
     while (true) {
         cout << "> ";
         cout.flush();
-        shared_ptr<string> message(new string());
+        boost::shared_ptr<string> message(new string());
         getline(cin, *message);
         if (*message == "/quit") {
             break;

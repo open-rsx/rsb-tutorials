@@ -4,7 +4,7 @@ project(rsb-chat-1)
 
 find_package(RSB REQUIRED)
 
-include_directories(${RSB_INCLUDE_DIRS})
+include_directories(SYSTEM ${RSB_INCLUDE_DIRS})
 link_directories(${RSB_LIBRARY_DIRS})
 
 set(PROGRAM_NAME rsb-chat-1)
