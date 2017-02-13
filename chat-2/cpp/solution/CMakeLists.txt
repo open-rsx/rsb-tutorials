@@ -16,3 +16,6 @@ set(PROGRAM_NAME rsb-chat-2)
 add_executable(${PROGRAM_NAME} src/chat.cpp)
 target_link_libraries(${PROGRAM_NAME} ${RSB_LIBRARIES}
                                       ${RST_LIBRARIES})
+
+install(TARGETS ${PROGRAM_NAME}
+        RUNTIME DESTINATION bin)
